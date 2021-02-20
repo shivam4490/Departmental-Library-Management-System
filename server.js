@@ -8,6 +8,8 @@ const users = require('./routes/api/users')
 
 const app = express()
 
+const bookrouter = require('./routes/api/book')
+
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -37,6 +39,7 @@ require('./config/passport')(passport)
 
 // Routes
 app.use('/api/users', users)
+app.use('/api', bookrouter)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')))
