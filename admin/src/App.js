@@ -1,23 +1,23 @@
 import React from 'react'
-import { Admin, Resource } from 'react-admin'
-import restProvider from 'ra-data-simple-rest'
-import BookList from './components/BookList'
-import BookCreate from './components/BookCreate'
-import BookEdit from './components/BookEdit'
-import UserList from './components/UserList'
+import Sidebar from './components/Sidebar'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import AddBooks from './components/AddBooks'
+import ListBooks from './components/ListBooks'
+import ListUsers from './components/ListUsers.js'
 
 function App() {
   return (
-    <Admin dataProvider={restProvider('http://localhost:3000')}>
-      <Resource
-        name='books'
-        list={BookList}
-        create={BookCreate}
-        edit={BookEdit}
-      />
+    <Router>
+      <div className='wrapper'>
+        <Sidebar />
 
-      <Resource name='users' list={UserList} />
-    </Admin>
+        <Switch>
+          <Route exact path='/AddBooks' component={AddBooks}></Route>
+          <Route exact path='/ListBooks' component={ListBooks}></Route>
+          <Route exact path='/ListUsers' component={ListUsers}></Route>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
