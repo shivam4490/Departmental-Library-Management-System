@@ -1,26 +1,28 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const passport = require('passport')
-const path = require('path')
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const passport = require("passport");
+const path = require("path");
+const cors = require("cors");
 
-const users = require('./routes/api/users')
+const users = require("./routes/api/users");
 
-const app = express()
+const app = express();
 
-const bookrouter = require('./routes/api/book')
+const bookrouter = require("./routes/api/book");
 
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
     extended: false,
   })
-)
+);
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(cors);
 
 const dbURL =
-  'mongodb+srv://shivam:shivam99090@cluster0.l3lw1.mongodb.net/library?retryWrites=true&w=majority'
+  "mongodb+srv://shivam:shivam99090@cluster0.l3lw1.mongodb.net/library?retryWrites=true&w=majority";
 
 //connect to MongoDB
 mongoose
@@ -28,27 +30,30 @@ mongoose
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-  .then(() => console.log('MongoDB successfully connected'))
-  .catch((err) => console.log(err))
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch((err) => console.log(err));
 
 // Passport middleware
-app.use(passport.initialize())
+app.use(passport.initialize());
 
 // Passport config
-require('./config/passport')(passport)
+require("./config/passport")(passport);
 
 // Routes
-app.use('/api/users', users)
-app.use('/api', bookrouter)
+app.use("/api/users", users);
+app.use("/api", bookrouter);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client', 'build')))
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client", "build")));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  })
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
 }
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server up and running on port ${port}`))
+app.listen(port, () => console.log(`Server up and running on port ${port}`));
+app.route("/", (req, res) => {
+  res.send("Hello");
+});

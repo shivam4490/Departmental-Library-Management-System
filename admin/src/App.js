@@ -1,24 +1,19 @@
-import React from 'react'
-import Sidebar from './components/Sidebar'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import AddBooks from './components/AddBooks'
-import ListBooks from './components/ListBooks'
-import ListUsers from './components/ListUsers.js'
+import Home from "./Components/Home/home";
+import Addbook from "./Components/AddBook/Addbook";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <Router>
-      <div className='wrapper'>
-        <Sidebar />
-
-        <Switch>
-          <Route exact path='/AddBooks' component={AddBooks}></Route>
-          <Route exact path='/ListBooks' component={ListBooks}></Route>
-          <Route exact path='/ListUsers' component={ListUsers}></Route>
-        </Switch>
-      </div>
-    </Router>
-  )
+    <div className="App">
+      <Router>
+        <div className="App">
+          <Route path="/" component={Home} exact />
+          <Route path="/addbook" component={Addbook} exact />
+        </div>
+      </Router>
+    </div>
+  );
 }
 
-export default App
+export default App;
