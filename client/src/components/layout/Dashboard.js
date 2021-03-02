@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
+import { Card, Button } from 'react-bootstrap'
 
 class Dashboard extends Component {
   onLogout = (e) => {
@@ -15,13 +16,17 @@ class Dashboard extends Component {
       <div className='container text-center mt-15'>
         <div className='row'>
           <div className='col-sm-12'>
-            <h4>
-              Hey there, <b className='name-lable'>{user.name.split(' ')[0]}</b>
-              <p className='mt-4'>
-                You are logged into a Library{' '}
-                <span style={{ fontFamily: 'monospace' }}></span> App 👏
-              </p>
-            </h4>
+            <Card style={{ width: '18rem' }}>
+              {/* <Card.Img variant='top' src='../../assets/image/book1.jpg' /> */}
+              <Card.Body>
+                <Card.Title>Card Title</Card.Title>
+                <Card.Text>
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </Card.Text>
+                <Button variant='primary'>Go somewhere</Button>
+              </Card.Body>
+            </Card>
             <button
               onClick={this.onLogout}
               className='btn btn-large btn-light hoverable font-weight-bold'

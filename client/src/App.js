@@ -7,7 +7,6 @@ import setAuthToken from './util/setAuthToken'
 import { setCurrentUser, logoutUser } from './actions/authActions'
 import { Admin, Resource } from 'react-admin'
 import restProvider from 'ra-data-simple-rest'
-import Booklist from './components/Booklist'
 
 import './App.css'
 
@@ -33,7 +32,7 @@ if (localStorage.jwtToken) {
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      {/* <Router>
         <div className='App'>
           <Navbar />
           <Route path='/' component={Landing} exact />
@@ -43,7 +42,8 @@ function App() {
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
         </div>
-      </Router>
+      </Router> */}
+      <Dashboard />
     </Provider>
   )
 }
