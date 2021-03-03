@@ -12,9 +12,14 @@ const BookSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
   ISBN: {
     type: Number,
     required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: null,
   },
 })
 

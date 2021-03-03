@@ -96,10 +96,10 @@ const Home = (props) => {
         </thead>
 
         <tbody>
-          {books.map((book) => {
+          {books.map((book, index) => {
             return (
               <tr key={book._id}>
-                <td>1</td>
+                <td>{index + 1}</td>
                 <td>{book.title}</td>
                 <td>{book.author}</td>
                 <td>{book.type}</td>
