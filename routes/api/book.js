@@ -3,6 +3,7 @@ const { findById } = require('../../models/BookSchema')
 const router = Router()
 
 const book = require('../../models/BookSchema')
+const user = require('../../models/UserSchema')
 
 router.post('/book/add', async (req, res) => {
   const { author, title, ISBN, type } = req.body
@@ -57,7 +58,12 @@ router.put('/book/:id', async (req, res) => {
 router.put('/book/issue/:id', async (req, res) => {
   try {
     const books = await book.findById(req.body.id)
+
     books.userId = req.params.id
+
+    const users = await user.findById(req.params.id)
+    books.username = users.name
+    books.isTaken = true
     books.save()
     res.json({ books })
   } catch (err) {
@@ -69,10 +75,21 @@ router.put('/book/return/:id', async (req, res) => {
   try {
     const books = await book.findById(req.params.id)
     books.userId = null
+    books.username = null
+    books.isTaken = false
     books.save()
     res.json({ books })
   } catch (err) {
     console.log(err)
+  }
+})
+
+router.get('/book/getissuedbooks', async (req, res) => {
+  try {
+    const books = await book.find({ isTaken: true })
+    res.json({ books })
+  } catch (error) {
+    console.log(error)
   }
 })
 

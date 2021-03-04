@@ -138,8 +138,19 @@ const Home = (props) => {
           props.history.push('addbook')
         }}
       >
-        <Button variant='success'>Add new Book</Button>
+        <Button style={{ marginRight: 15 }} variant='success'>
+          Add new Book
+        </Button>
       </div>
+      <Button
+        style={{ margin: 20 }}
+        varient='primary'
+        onClick={() => {
+          props.history.push('issuebook')
+        }}
+      >
+        View Issued Books
+      </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Book Data</Modal.Title>

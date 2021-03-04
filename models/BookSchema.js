@@ -21,6 +21,14 @@ const BookSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: null,
   },
+  username: {
+    type: String,
+    default: null,
+  },
+  isTaken: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 module.exports = mongoose.model('books', BookSchema)
