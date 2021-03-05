@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 
-const IssueBooks = () => {
+const IssueBooks = (props) => {
   const [books, setbooks] = useState([])
   useEffect(() => {
     fetch('http://localhost:5000/api/book/getissuedbooks')
@@ -38,6 +38,18 @@ const IssueBooks = () => {
           })}
         </tbody>
       </Table>
+
+      <div>
+        <Button
+          style={{ marginLeft: 10 }}
+          variant='success'
+          onClick={() => {
+            props.history.push('/')
+          }}
+        >
+          Go Back
+        </Button>
+      </div>
     </div>
   )
 }
