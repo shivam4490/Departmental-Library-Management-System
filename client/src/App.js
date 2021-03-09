@@ -16,6 +16,7 @@ import Register from './components/layout/Register'
 import Login from './components/layout/Login'
 import PrivateRoute from './components/private-route/PrivateRoute'
 import Dashboard from './components/layout/Dashboard'
+import singlebook from './components/layout/singlebook'
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken
@@ -43,7 +44,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-      {/* <Dashboard /> */}
     </Provider>
   )
 }
