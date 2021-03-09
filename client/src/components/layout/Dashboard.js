@@ -11,6 +11,12 @@ import {
   Card,
   Row,
 } from 'react-bootstrap'
+import manual from '../../assets/image/manual-for-living.jpg'
+import art from '../../assets/image/art-of-possible.jpg'
+import stumbling from '../../assets/image/stumbling.jpg'
+import richestman from '../../assets/image/richest-man.jpg'
+import happy from '../../assets/image/happier.jpg'
+import book1 from '../../assets/image/book1.jpg'
 
 class Dashboard extends Component {
   onLogout = (e) => {
@@ -52,7 +58,20 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
+              <Card.Img variant='top' src={art} style={{ height: 250 }} />
+              <Card.Title>The Art of Possibility</Card.Title>
+              <Card.Text>Rosamund Zander and Benjamin Zander</Card.Text>
+              <Card.Text>Self-help</Card.Text>
+              <Card.Text>9781422131008</Card.Text>
+              <Button variant='secondary'>Issue Book</Button>
+            </Card.Body>
+          </Card>
+          <Card
+            className='my-3 p-3 rounded'
+            style={{ width: '18rem', marginLeft: 80 }}
+          >
+            <Card.Body>
+              <Card.Img variant='top' src={manual} style={{ height: 250 }} />
               <Card.Title>Manual for Living</Card.Title>
               <Card.Text>Epictetus</Card.Text>
               <Card.Text>Self-help</Card.Text>
@@ -65,11 +84,11 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
-              <Card.Title>Manual for Living</Card.Title>
-              <Card.Text>Epictetus</Card.Text>
+              <Card.Img variant='top' src={stumbling} style={{ height: 250 }} />
+              <Card.Title>Stumbling on Happiness</Card.Title>
+              <Card.Text>Dan Gilbert</Card.Text>
               <Card.Text>Self-help</Card.Text>
-              <Card.Text>9781548372828</Card.Text>
+              <Card.Text>9780007183128</Card.Text>
               <Button variant='secondary'>Issue Book</Button>
             </Card.Body>
           </Card>
@@ -78,24 +97,15 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
-              <Card.Title>Manual for Living</Card.Title>
-              <Card.Text>Epictetus</Card.Text>
+              <Card.Img
+                variant='top'
+                src={richestman}
+                style={{ height: 250 }}
+              />
+              <Card.Title>The Richest Man in Babylon</Card.Title>
+              <Card.Text>George S. Clason</Card.Text>
               <Card.Text>Self-help</Card.Text>
-              <Card.Text>9781548372828</Card.Text>
-              <Button variant='secondary'>Issue Book</Button>
-            </Card.Body>
-          </Card>
-          <Card
-            className='my-3 p-3 rounded'
-            style={{ width: '18rem', marginLeft: 80 }}
-          >
-            <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
-              <Card.Title>Manual for Living</Card.Title>
-              <Card.Text>Epictetus</Card.Text>
-              <Card.Text>Self-help</Card.Text>
-              <Card.Text>9781548372828</Card.Text>
+              <Card.Text>9783035020502</Card.Text>
               <Button variant='secondary'>Issue Book</Button>
             </Card.Body>
           </Card>
@@ -106,7 +116,20 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
+              <Card.Img variant='top' src={happy} style={{ height: 250 }} />
+              <Card.Title>10% Happier</Card.Title>
+              <Card.Text>Dan Harris</Card.Text>
+              <Card.Text>Self-help</Card.Text>
+              <Card.Text>9780062265425</Card.Text>
+              <Button variant='secondary'>Issue Book</Button>
+            </Card.Body>
+          </Card>
+          <Card
+            className='my-3 p-3 rounded'
+            style={{ width: '18rem', marginLeft: 80 }}
+          >
+            <Card.Body>
+              <Card.Img variant='top' src={book1} style={{ height: 250 }} />
               <Card.Title>Manual for Living</Card.Title>
               <Card.Text>Epictetus</Card.Text>
               <Card.Text>Self-help</Card.Text>
@@ -119,7 +142,7 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
+              <Card.Img variant='top' src={book1} style={{ height: 250 }} />
               <Card.Title>Manual for Living</Card.Title>
               <Card.Text>Epictetus</Card.Text>
               <Card.Text>Self-help</Card.Text>
@@ -132,20 +155,7 @@ class Dashboard extends Component {
             style={{ width: '18rem', marginLeft: 80 }}
           >
             <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
-              <Card.Title>Manual for Living</Card.Title>
-              <Card.Text>Epictetus</Card.Text>
-              <Card.Text>Self-help</Card.Text>
-              <Card.Text>9781548372828</Card.Text>
-              <Button variant='secondary'>Issue Book</Button>
-            </Card.Body>
-          </Card>
-          <Card
-            className='my-3 p-3 rounded'
-            style={{ width: '18rem', marginLeft: 80 }}
-          >
-            <Card.Body>
-              <Card.Img variant='top' src='../../assets/image/book1.jpg' />
+              <Card.Img variant='top' src={book1} style={{ height: 250 }} />
               <Card.Title>Manual for Living</Card.Title>
               <Card.Text>Epictetus</Card.Text>
               <Card.Text>Self-help</Card.Text>
