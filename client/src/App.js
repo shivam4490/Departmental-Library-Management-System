@@ -35,7 +35,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className='App'>
-          <Navbar />
+          {/* <Navbar /> */}
           <Route path='/' component={Landing} exact />
           <Route path='/register' component={Register} exact />
           <Route path='/login' component={Login} exact />
