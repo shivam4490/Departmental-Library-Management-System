@@ -57,11 +57,11 @@ router.put('/book/:id', async (req, res) => {
 
 router.put('/book/issue/:id', async (req, res) => {
   try {
-    const books = await book.findById(req.body.id)
+    const books = await book.findById(req.body._id)
 
-    books.userId = req.params.id
+    books.userId = req.body.userId
 
-    const users = await user.findById(req.params.id)
+    const users = await user.findById(req.body.userId)
     books.username = users.name
     books.isTaken = true
     books.save()

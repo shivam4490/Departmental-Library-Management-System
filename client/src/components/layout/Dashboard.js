@@ -17,7 +17,7 @@ import stumbling from '../../assets/image/stumbling.jpg'
 import richestman from '../../assets/image/richest-man.jpg'
 import happy from '../../assets/image/happier.jpg'
 import book1 from '../../assets/image/book1.jpg'
-import { setbooks } from '../../actions/bookActions'
+import { setbooks, issuebook } from '../../actions/bookActions'
 
 const Dashboard = (props) => {
   const onLogout = (e) => {
@@ -28,6 +28,10 @@ const Dashboard = (props) => {
   const [search, setSearch] = useState('')
   const dispatch = useDispatch()
 
+  const issuebookHandler = async (book) => {
+    await dispatch(issuebook(book))
+  }
+
   useEffect(() => {
     const fun = async () => {
       await dispatch(setbooks())
@@ -36,8 +40,8 @@ const Dashboard = (props) => {
   }, [])
 
   const books = useSelector((state) => state.books)
-  let bookArray = []
-  bookArray = books.books.books
+
+  let bookArray = books.books
 
   const { user } = props.auth
   return (
@@ -100,7 +104,14 @@ const Dashboard = (props) => {
                       <Card.Text>{book.author}</Card.Text>
                       <Card.Text>{book.type}</Card.Text>
                       <Card.Text>{book.ISBN}</Card.Text>
-                      <Button variant='success'>Issue Book</Button>
+                      <Button
+                        variant='success'
+                        onClick={() => {
+                          issuebookHandler(book)
+                        }}
+                      >
+                        Issue Book
+                      </Button>
                     </Card.Body>
                   </Card>
                 )
