@@ -93,4 +93,13 @@ router.get('/book/getissuedbooks', async (req, res) => {
   }
 })
 
+router.get('/book/getavailablebooks', async (req, res) => {
+  try {
+    const books = await book.find({ isTaken: false })
+    res.json({ books })
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 module.exports = router

@@ -49,53 +49,58 @@ class Login extends Component {
   render() {
     const { email, password, errors } = this.state
     return (
-      <div className='form-box'>
-        <form className='login-form' onSubmit={this.onSubmit}>
-          <h2>Login</h2>
-          <hr />
-          <div className='form-group'>
-            <input
-              type='email'
-              id='email'
-              placeholder='Email Address'
-              value={email}
-              error={errors}
-              onChange={this.onChange}
-              className={classnames('form-control', {
-                invalid: errors.email || errors.emailnotfound,
-              })}
-            />
-            <span className='red-text'>
-              {errors.email}
-              {errors.emailnotfound}
-            </span>
-          </div>
-          <div className='form-group'>
-            <input
-              type='password'
-              id='password'
-              placeholder='Password'
-              value={password}
-              error={errors}
-              onChange={this.onChange}
-              className={classnames('form-control', {
-                invalid: errors.password || errors.passwordincorrect,
-              })}
-            />
-            <span className='red-text'>
-              {errors.password}
-              {errors.passwordincorrect}
-            </span>
-          </div>
-          <div className='form-group'>
-            <button type='submit' className='btn btn-primary btn-block btn-lg'>
-              Login
-            </button>
-          </div>
-          <div className='text-center'>
-            Don't have an account? <Link to='/register'>Register</Link>
-          </div>
-        </form>
+      <div>
+        <div className='form-box'>
+          <form className='login-form' onSubmit={this.onSubmit}>
+            <h2>Login</h2>
+            <hr />
+            <div className='form-group'>
+              <input
+                type='email'
+                id='email'
+                placeholder='Email Address'
+                value={email}
+                error={errors}
+                onChange={this.onChange}
+                className={classnames('form-control', {
+                  invalid: errors.email || errors.emailnotfound,
+                })}
+              />
+              <span className='red-text'>
+                {errors.email}
+                {errors.emailnotfound}
+              </span>
+            </div>
+            <div className='form-group'>
+              <input
+                type='password'
+                id='password'
+                placeholder='Password'
+                value={password}
+                error={errors}
+                onChange={this.onChange}
+                className={classnames('form-control', {
+                  invalid: errors.password || errors.passwordincorrect,
+                })}
+              />
+              <span className='red-text'>
+                {errors.password}
+                {errors.passwordincorrect}
+              </span>
+            </div>
+            <div className='form-group'>
+              <button
+                type='submit'
+                className='btn btn-primary btn-block btn-lg'
+              >
+                Login
+              </button>
+            </div>
+            <div className='text-center'>
+              Don't have an account? <Link to='/register'>Register</Link>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }

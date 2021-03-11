@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const path = require('path')
 const cors = require('cors')
+const morgan = require('morgan')
 
 const users = require('./routes/api/users')
 
@@ -20,7 +21,7 @@ app.use(
 
 app.use(bodyParser.json())
 app.use(cors())
-
+app.use(morgan('dev'))
 const dbURL =
   'mongodb+srv://shivam:shivam99090@cluster0.l3lw1.mongodb.net/library?retryWrites=true&w=majority'
 
