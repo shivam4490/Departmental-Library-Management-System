@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
@@ -25,6 +25,7 @@ const Dashboard = (props) => {
     props.logoutUser()
   }
 
+  const [search, setSearch] = useState('')
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const Dashboard = (props) => {
 
   const { user } = props.auth
   return (
-    <div>
+    <div style={{ width: '100%', overflow: 'hidden' }}>
       <Navbar bg='dark' variant='dark'>
         <Navbar.Brand href='#home' style={{ marginLeft: 40 }}>
           Library
@@ -54,6 +55,9 @@ const Dashboard = (props) => {
               placeholder='Search...'
               className='mr-sm-2'
               style={{ marginLeft: 15, width: 250 }}
+              onChange={(event) => {
+                setSearch(event.target.value)
+              }}
             />
             <Button variant='outline-light'>Search</Button>
           </Form>
@@ -67,24 +71,40 @@ const Dashboard = (props) => {
       </Navbar>
       <Row>
         {bookArray
-          ? bookArray.map((book) => {
-              return (
-                <Card
-                  key={book._id}
-                  className='my-3 p-3 rounded'
-                  style={{ width: '18rem', marginLeft: 80 }}
-                >
-                  <Card.Body>
-                    <Card.Img variant='top' src={art} style={{ height: 250 }} />
-                    <Card.Title>{book.title}</Card.Title>
-                    <Card.Text>{book.author}</Card.Text>
-                    <Card.Text>{book.type}</Card.Text>
-                    <Card.Text>{book.ISBN}</Card.Text>
-                    <Button variant='secondary'>Issue Book</Button>
-                  </Card.Body>
-                </Card>
-              )
-            })
+          ? bookArray
+              .filter((book) => {
+                if (search == '') {
+                  return book
+                } else if (
+                  book.title.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return book
+                }
+              })
+              .map((book) => {
+                return (
+                  <Card
+                    key={book._id}
+                    className='my-3 p-3 rounded'
+                    style={{ width: '18rem', marginLeft: 80 }}
+                  >
+                    <Card.Body>
+                      <Card.Img
+                        variant='top'
+                        src={art}
+                        style={{ height: 250 }}
+                      />
+                      <Card.Title style={{ marginTop: 20 }}>
+                        {book.title}
+                      </Card.Title>
+                      <Card.Text>{book.author}</Card.Text>
+                      <Card.Text>{book.type}</Card.Text>
+                      <Card.Text>{book.ISBN}</Card.Text>
+                      <Button variant='success'>Issue Book</Button>
+                    </Card.Body>
+                  </Card>
+                )
+              })
           : console.log('you shut the fuck up ')}
       </Row>
     </div>
