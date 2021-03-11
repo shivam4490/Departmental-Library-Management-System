@@ -50,6 +50,7 @@ class Login extends Component {
     const { email, password, errors } = this.state
     return (
       <div>
+        <Navbar />
         <div className='form-box'>
           <form className='login-form' onSubmit={this.onSubmit}>
             <h2>Login</h2>
