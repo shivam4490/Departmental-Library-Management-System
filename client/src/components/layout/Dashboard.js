@@ -18,6 +18,7 @@ import richestman from '../../assets/image/richest-man.jpg'
 import happy from '../../assets/image/happier.jpg'
 import book1 from '../../assets/image/book1.jpg'
 import { setbooks, issuebook } from '../../actions/bookActions'
+import Pagination from './../Pagination'
 
 const Dashboard = (props) => {
   const onLogout = (e) => {
@@ -44,6 +45,18 @@ const Dashboard = (props) => {
   let bookArray = books.books
 
   const { user } = props.auth
+
+  const [showPerPage, setShowPerPage] = useState(4)
+
+  const [pagination, setPagination] = useState({
+    start: 0,
+    end: showPerPage,
+  })
+
+  const onPaginationChange = (start, end) => {
+    setPagination({ start: start, end: end })
+  }
+
   return (
     <div style={{ width: '100%', overflow: 'hidden' }}>
       <Navbar bg='dark' variant='dark'>
@@ -76,6 +89,7 @@ const Dashboard = (props) => {
       <Row>
         {bookArray
           ? bookArray
+              .slice(pagination.start, pagination.end)
               .filter((book) => {
                 if (search == '') {
                   return book
@@ -116,8 +130,13 @@ const Dashboard = (props) => {
                   </Card>
                 )
               })
-          : console.log('you shut the fuck up ')}
+          : console.log('shhhh')}
       </Row>
+      <Pagination
+        showPerPage={showPerPage}
+        onPaginationChange={onPaginationChange}
+        total={bookArray.length}
+      />
     </div>
   )
 }
