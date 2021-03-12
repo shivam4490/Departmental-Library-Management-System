@@ -1,52 +1,33 @@
-import React, { Component, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { logoutUser } from '../../actions/authActions'
+import React, { useState, useEffect } from 'react'
 import {
+  Card,
+  Img,
+  Button,
   Nav,
   Navbar,
   Form,
   FormControl,
-  Button,
-  Card,
   Row,
 } from 'react-bootstrap'
-import manual from '../../assets/image/manual-for-living.jpg'
 import art from '../../assets/image/art-of-possible.jpg'
-import stumbling from '../../assets/image/stumbling.jpg'
-import richestman from '../../assets/image/richest-man.jpg'
-import happy from '../../assets/image/happier.jpg'
-import book1 from '../../assets/image/book1.jpg'
-import { setbooks, issuebook } from '../../actions/bookActions'
-import Pagination from './../Pagination'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { userbook } from '../../actions/bookActions'
+import pagination from './../Pagination'
 
-const Dashboard = (props) => {
+const Userbooks = (props) => {
   const onLogout = (e) => {
     e.preventDefault()
     props.logoutUser()
   }
 
-  const [search, setSearch] = useState('')
+  const books = useSelector((state) => state.books.userbooks)
+  console.log(books)
+
   const dispatch = useDispatch()
-
-  const issuebookHandler = async (book) => {
-    await dispatch(issuebook(book))
-  }
-
-  useEffect(() => {
-    const fun = async () => {
-      await dispatch(setbooks())
-    }
-    fun()
+  useEffect(async () => {
+    await dispatch(userbook())
   }, [])
-
-  const books = useSelector((state) => state.books)
-
-  let bookArray = books.books
-  console.log(bookArray)
-
-  const { user } = props.auth
 
   const [showPerPage, setShowPerPage] = useState(4)
 
@@ -59,8 +40,9 @@ const Dashboard = (props) => {
     setPagination({ start: start, end: end })
   }
 
+  const [search, setSearch] = useState('')
   return (
-    <div style={{ width: '100%', overflow: 'hidden' }}>
+    <div>
       <Navbar bg='dark' variant='dark'>
         <Link
           to='/dashboard'
@@ -109,8 +91,9 @@ const Dashboard = (props) => {
         </button>
       </Navbar>
       <Row>
-        {bookArray
-          ? bookArray
+        {' '}
+        {books
+          ? books
               .slice(pagination.start, pagination.end)
               .filter((book) => {
                 if (search == '') {
@@ -140,36 +123,15 @@ const Dashboard = (props) => {
                       <Card.Text>{book.author}</Card.Text>
                       <Card.Text>{book.type}</Card.Text>
                       <Card.Text>{book.ISBN}</Card.Text>
-                      <Button
-                        variant='success'
-                        onClick={() => {
-                          issuebookHandler(book)
-                        }}
-                      >
-                        Issue Book
-                      </Button>
+                      <Button variant='danger'>Return Book</Button>
                     </Card.Body>
                   </Card>
                 )
               })
           : console.log('shhhh')}
       </Row>
-      <Pagination
-        showPerPage={showPerPage}
-        onPaginationChange={onPaginationChange}
-        total={bookArray.length}
-      />
     </div>
   )
 }
 
-Dashboard.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-})
-
-export default connect(mapStateToProps, { logoutUser })(Dashboard)
+export default Userbooks

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import setAuthToken from '../util/setAuthToken'
-import { GET_BOOKS, GET_ERRORS, ISSUE_BOOK } from './types'
+import { GET_BOOKS, GET_ERRORS, ISSUE_BOOK, USER_BOOK } from './types'
 
 export const setbooks = () => (dispatch) => {
   axios
@@ -29,6 +29,26 @@ export const issuebook = (book) => (dispatch, getState) => {
       console.log(res.ok)
       dispatch({
         type: ISSUE_BOOK,
+        payload: res.data.books,
+      })
+      console.log(res.data.books)
+    })
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err,
+      })
+    )
+}
+
+export const userbook = (book) => (dispatch, getState) => {
+  const { auth } = getState()
+
+  axios
+    .get(`http://localhost:5000/api/book/getuserbooks`)
+    .then((res) => {
+      dispatch({
+        type: USER_BOOK,
         payload: res.data.books,
       })
       console.log(res.data.books)

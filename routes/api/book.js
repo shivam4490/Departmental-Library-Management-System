@@ -1,6 +1,7 @@
 const { Router, response } = require('express')
 const { findById } = require('../../models/BookSchema')
 const router = Router()
+const jwt = require('jsonwebtoken')
 
 const book = require('../../models/BookSchema')
 const user = require('../../models/UserSchema')
@@ -96,6 +97,24 @@ router.get('/book/getissuedbooks', async (req, res) => {
 router.get('/book/getavailablebooks', async (req, res) => {
   try {
     const books = await book.find({ isTaken: false })
+    res.json({ books })
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+router.get('/book/getuserbooks', async (req, res) => {
+  const auth = req.header('Authorization')
+
+  const token = auth.split(' ')[1]
+  if (!token || token === '' || token === null) {
+    return res.status(401).json({ message: 'You need to be logged in' })
+  }
+  const decode = await jwt.verify(token, 'secret')
+  console.log(decode)
+
+  try {
+    const books = await book.find({ isTaken: true, userId: decode.id })
     res.json({ books })
   } catch (error) {
     console.log(error)
