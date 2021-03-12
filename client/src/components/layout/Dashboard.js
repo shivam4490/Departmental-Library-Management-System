@@ -43,6 +43,7 @@ const Dashboard = (props) => {
   const books = useSelector((state) => state.books)
 
   let bookArray = books.books
+  console.log(bookArray)
 
   const { user } = props.auth
 

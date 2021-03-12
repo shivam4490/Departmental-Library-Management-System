@@ -26,10 +26,12 @@ export const issuebook = (book) => (dispatch, getState) => {
   axios
     .put(`http://localhost:5000/api/book/issue/${book._id}`, newbook)
     .then((res) => {
+      console.log(res.ok)
       dispatch({
         type: ISSUE_BOOK,
         payload: res.data.books,
       })
+      console.log(res.data.books)
     })
     .catch((err) =>
       dispatch({

@@ -15,13 +15,12 @@ export default function (state = initialState, action) {
       }
 
     case ISSUE_BOOK:
-      const oldstate = { ...state.books }
+      const oldstate = [...state.books]
 
-      const newstate = oldstate.books.filter((book) => {
-        console.log(book._id != action.payload._id)
+      const newstate = oldstate.filter((book) => {
         return book._id != action.payload._id
       })
-      console.log(newstate)
+
       return {
         ...state,
         books: newstate,
