@@ -39,23 +39,6 @@ router.delete('/book/:id', async (req, res) => {
   }
 })
 
-router.put('/book/:id', async (req, res) => {
-  const { author, title, ISBN, type } = req.body
-
-  try {
-    const books = await book.findById(req.params.id)
-    if (author) books.author = author
-    if (title) books.title = title
-    if (ISBN) books.ISBN = ISBN
-    if (type) books.type = type
-
-    books.save()
-    res.json({ books })
-  } catch (err) {
-    console.log(err)
-  }
-})
-
 router.put('/book/issue/:id', async (req, res) => {
   try {
     const books = await book.findById(req.body._id)
@@ -65,19 +48,6 @@ router.put('/book/issue/:id', async (req, res) => {
     const users = await user.findById(req.body.userId)
     books.username = users.name
     books.isTaken = true
-    books.save()
-    res.json({ books })
-  } catch (err) {
-    console.log(err)
-  }
-})
-
-router.put('/book/return/:id', async (req, res) => {
-  try {
-    const books = await book.findById(req.params.id)
-    books.userId = null
-    books.username = null
-    books.isTaken = false
     books.save()
     res.json({ books })
   } catch (err) {
@@ -105,7 +75,7 @@ router.get('/book/getavailablebooks', async (req, res) => {
 
 router.get('/book/getuserbooks', async (req, res) => {
   const auth = req.header('Authorization')
-
+  console.log(auth)
   const token = auth.split(' ')[1]
   if (!token || token === '' || token === null) {
     return res.status(401).json({ message: 'You need to be logged in' })
@@ -114,10 +84,43 @@ router.get('/book/getuserbooks', async (req, res) => {
   console.log(decode)
 
   try {
+    console.log(decode.id)
     const books = await book.find({ isTaken: true, userId: decode.id })
+    console.log(books, decode.id)
     res.json({ books })
   } catch (error) {
     console.log(error)
+  }
+})
+
+router.put('/book/return', async (req, res) => {
+  try {
+    console.log(req.body)
+    const books = await book.findById(req.body._id)
+    books.userId = null
+    books.username = null
+    books.isTaken = false
+    books.save()
+    res.json({ books })
+  } catch (err) {
+    console.log(err)
+  }
+})
+
+router.put('/book/:id', async (req, res) => {
+  const { author, title, ISBN, type } = req.body
+
+  try {
+    const books = await book.findById(req.params.id)
+    if (author) books.author = author
+    if (title) books.title = title
+    if (ISBN) books.ISBN = ISBN
+    if (type) books.type = type
+
+    books.save()
+    res.json({ books })
+  } catch (err) {
+    console.log(err)
   }
 })
 

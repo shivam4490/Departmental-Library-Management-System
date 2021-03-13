@@ -12,8 +12,8 @@ import {
 import art from '../../assets/image/art-of-possible.jpg'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { userbook } from '../../actions/bookActions'
-import pagination from './../Pagination'
+import { returnbook, userbook } from '../../actions/bookActions'
+import Pagination from './../Pagination'
 
 const Userbooks = (props) => {
   const onLogout = (e) => {
@@ -35,6 +35,10 @@ const Userbooks = (props) => {
     start: 0,
     end: showPerPage,
   })
+
+  const returnBookHandler = async (book) => {
+    await dispatch(returnbook(book))
+  }
 
   const onPaginationChange = (start, end) => {
     setPagination({ start: start, end: end })
@@ -92,7 +96,7 @@ const Userbooks = (props) => {
       </Navbar>
       <Row>
         {' '}
-        {books
+        {books && books.length
           ? books
               .slice(pagination.start, pagination.end)
               .filter((book) => {
@@ -123,13 +127,25 @@ const Userbooks = (props) => {
                       <Card.Text>{book.author}</Card.Text>
                       <Card.Text>{book.type}</Card.Text>
                       <Card.Text>{book.ISBN}</Card.Text>
-                      <Button variant='danger'>Return Book</Button>
+                      <Button
+                        variant='danger'
+                        onClick={() => {
+                          returnBookHandler(book)
+                        }}
+                      >
+                        Return Book
+                      </Button>
                     </Card.Body>
                   </Card>
                 )
               })
           : console.log('shhhh')}
       </Row>
+      {/* <Pagination
+        showPerPage={showPerPage}
+        onPaginationChange={onPaginationChange}
+        total={books.length}
+      /> */}
     </div>
   )
 }

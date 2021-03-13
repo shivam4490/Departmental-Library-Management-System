@@ -59,6 +59,7 @@ const Addbook = (props) => {
             type='text'
             placeholder='Enter title'
             required
+            autoComplete='off'
             value={book.title}
           />
         </Form.Group>
@@ -71,6 +72,7 @@ const Addbook = (props) => {
             type='text'
             placeholder='Author'
             required
+            autoComplete='off'
             value={book.author}
           />
         </Form.Group>
@@ -83,6 +85,7 @@ const Addbook = (props) => {
             type='text'
             placeholder='Genre'
             required
+            autoComplete='off'
             value={book.type}
           />
         </Form.Group>
@@ -95,6 +98,7 @@ const Addbook = (props) => {
             type='number'
             placeholder='ISBN No.'
             required
+            autoComplete='off'
             value={book.ISBN}
           />
         </Form.Group>

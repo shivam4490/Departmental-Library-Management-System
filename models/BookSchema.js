@@ -18,8 +18,8 @@ const BookSchema = mongoose.Schema({
     required: true,
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: null,
+    type: String,
+    default: '',
   },
   username: {
     type: String,
