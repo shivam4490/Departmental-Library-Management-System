@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Table } from 'react-bootstrap'
+import { Button, Table, Nav, Navbar, FormControl, Form } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const IssueBooks = (props) => {
   const [books, setbooks] = useState([])
+  const [search, setSearch] = useState('')
   useEffect(() => {
     fetch('http://localhost:5000/api/book/getissuedbooks')
       .then((res) => res.json())
@@ -17,6 +19,35 @@ const IssueBooks = (props) => {
 
   return (
     <div>
+      <Navbar bg='dark' variant='dark'>
+        <Link
+          to='/'
+          style={{
+            marginLeft: 40,
+            marginRight: 20,
+
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: 25,
+          }}
+        >
+          AdminSide
+        </Link>
+        <Nav className='mr-auto'>
+          <Form inline>
+            <FormControl
+              type='text'
+              placeholder='Search...'
+              className='mr-sm-2'
+              style={{ marginLeft: 15, width: 250 }}
+              onChange={(event) => {
+                setSearch(event.target.value)
+              }}
+            />
+            <Button variant='outline-light'>Search</Button>
+          </Form>
+        </Nav>
+      </Navbar>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -27,15 +58,25 @@ const IssueBooks = (props) => {
         </thead>
 
         <tbody>
-          {books.map((book, index) => {
-            return (
-              <tr key={book._id}>
-                <td>{index + 1}</td>
-                <td>{book.title}</td>
-                <td>{book.username}</td>
-              </tr>
-            )
-          })}
+          {books
+            .filter((book) => {
+              if (search == '') {
+                return book
+              } else if (
+                book.username.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return book
+              }
+            })
+            .map((book, index) => {
+              return (
+                <tr key={book._id}>
+                  <td>{index + 1}</td>
+                  <td>{book.title}</td>
+                  <td>{book.username}</td>
+                </tr>
+              )
+            })}
         </tbody>
       </Table>
 

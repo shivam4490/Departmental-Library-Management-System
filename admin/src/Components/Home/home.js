@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
+import { Nav, FormControl, Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Home = (props) => {
   const [books, setbooks] = useState([])
@@ -13,6 +15,8 @@ const Home = (props) => {
     ISBN: '',
     _id: '',
   })
+
+  const [search, setSearch] = useState('')
 
   const handleClose = () => {
     setshow(false)
@@ -84,6 +88,47 @@ const Home = (props) => {
 
   return (
     <div>
+      <Navbar bg='dark' variant='dark'>
+        <Link
+          to='/'
+          style={{
+            marginLeft: 40,
+            marginRight: 20,
+
+            color: 'white',
+            textDecoration: 'none',
+            fontSize: 25,
+          }}
+        >
+          AdminSide
+        </Link>
+        <Nav className='mr-auto'>
+          <Link
+            to='/issuebook'
+            style={{
+              marginTop: 5,
+              color: 'white',
+              textDecoration: 'none',
+              fontSize: 20,
+            }}
+          >
+            UserList
+          </Link>
+
+          <Form inline>
+            <FormControl
+              type='text'
+              placeholder='Search...'
+              className='mr-sm-2'
+              style={{ marginLeft: 15, width: 250 }}
+              onChange={(event) => {
+                setSearch(event.target.value)
+              }}
+            />
+            <Button variant='outline-light'>Search</Button>
+          </Form>
+        </Nav>
+      </Navbar>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -96,39 +141,50 @@ const Home = (props) => {
         </thead>
 
         <tbody>
-          {books.map((book, index) => {
-            return (
-              <tr key={book._id}>
-                <td>{index + 1}</td>
-                <td>{book.title}</td>
-                <td>{book.author}</td>
-                <td>{book.type}</td>
-                <td>{book.ISBN}</td>
-                <td>
-                  <div>
-                    <FaEdit
-                      style={{ cursor: 'pointer' }}
-                      color='#1607a3'
-                      onClick={() => {
-                        setshow(true)
+          {books
+            .filter((book) => {
+              if (search == '') {
+                return book
+              } else if (
+                book.title.toLowerCase().includes(search.toLowerCase()) ||
+                book.author.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return book
+              }
+            })
+            .map((book, index) => {
+              return (
+                <tr key={book._id}>
+                  <td>{index + 1}</td>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.type}</td>
+                  <td>{book.ISBN}</td>
+                  <td>
+                    <div>
+                      <FaEdit
+                        style={{ cursor: 'pointer' }}
+                        color='#1607a3'
+                        onClick={() => {
+                          setshow(true)
 
-                        editBookHandler(book._id)
-                      }}
-                    />
-                    <div style={{ marginRight: 10, display: 'inline' }}></div>
+                          editBookHandler(book._id)
+                        }}
+                      />
+                      <div style={{ marginRight: 10, display: 'inline' }}></div>
 
-                    <MdDelete
-                      style={{ cursor: 'pointer' }}
-                      color='#ad0202'
-                      onClick={() => {
-                        deleteBookHandler(book._id)
-                      }}
-                    />
-                  </div>
-                </td>
-              </tr>
-            )
-          })}
+                      <MdDelete
+                        style={{ cursor: 'pointer' }}
+                        color='#ad0202'
+                        onClick={() => {
+                          deleteBookHandler(book._id)
+                        }}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              )
+            })}
         </tbody>
       </Table>
 
@@ -142,15 +198,7 @@ const Home = (props) => {
           Add new Book
         </Button>
       </div>
-      <Button
-        style={{ margin: 20 }}
-        varient='primary'
-        onClick={() => {
-          props.history.push('issuebook')
-        }}
-      >
-        View Issued Books
-      </Button>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Book Data</Modal.Title>
