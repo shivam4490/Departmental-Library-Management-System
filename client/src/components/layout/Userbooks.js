@@ -8,6 +8,7 @@ import {
   Form,
   FormControl,
   Row,
+  Col,
 } from 'react-bootstrap'
 import art from '../../assets/image/art-of-possible.jpg'
 import { Link } from 'react-router-dom'
@@ -118,16 +119,44 @@ const Userbooks = (props) => {
                     <Card.Body>
                       <Card.Img
                         variant='top'
-                        src={art}
+                        src={`../../../${book.Image}`}
                         style={{ height: 250 }}
                       />
-                      <Card.Title style={{ marginTop: 20 }}>
-                        {book.title}
-                      </Card.Title>
-                      <Card.Text>{book.author}</Card.Text>
-                      <Card.Text>{book.type}</Card.Text>
-                      <Card.Text>{book.ISBN}</Card.Text>
+                      <Row style={{ marginTop: 10, marginBottom: -10 }}>
+                        <Col>
+                          <strong>Title: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Title>{book.title}</Card.Title>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>Author: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.author}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>Type: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.type}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>ISBN: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.ISBN}</Card.Text>
+                        </Col>
+                      </Row>
+
                       <Button
+                        style={{ marginTop: 10 }}
                         variant='danger'
                         onClick={() => {
                           returnBookHandler(book)

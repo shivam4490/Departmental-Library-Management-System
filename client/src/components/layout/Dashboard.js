@@ -10,13 +10,9 @@ import {
   Button,
   Card,
   Row,
+  Col,
 } from 'react-bootstrap'
-import manual from '../../assets/image/manual-for-living.jpg'
-import art from '../../assets/image/art-of-possible.jpg'
-import stumbling from '../../assets/image/stumbling.jpg'
-import richestman from '../../assets/image/richest-man.jpg'
-import happy from '../../assets/image/happier.jpg'
-import book1 from '../../assets/image/book1.jpg'
+
 import { setbooks, issuebook } from '../../actions/bookActions'
 import Pagination from './../Pagination'
 import { Link } from 'react-router-dom'
@@ -134,14 +130,41 @@ const Dashboard = (props) => {
                         src={`../../../../${book.Image}`}
                         style={{ height: 250 }}
                       />
-                      <Card.Title style={{ marginTop: 20 }}>
-                        {book.title}
-                      </Card.Title>
-                      <Card.Text>{book.author}</Card.Text>
-                      <Card.Text>{book.type}</Card.Text>
-                      <Card.Text>{book.ISBN}</Card.Text>
+                      <Row style={{ marginTop: 10, marginBottom: -10 }}>
+                        <Col>
+                          <strong>Title: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Title>{book.title}</Card.Title>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>Author: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.author}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>Type: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.type}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>ISBN: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{book.ISBN}</Card.Text>
+                        </Col>
+                      </Row>
                       <Button
                         variant='success'
+                        style={{ marginTop: 10 }}
                         onClick={() => {
                           issuebookHandler(book)
                         }}

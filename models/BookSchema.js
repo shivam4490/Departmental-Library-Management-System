@@ -33,6 +33,14 @@ const BookSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  issueDate: {
+    type: Date,
+    default: '',
+  },
+  returnDate: {
+    type: Date,
+    default: '',
+  },
 })
 
 module.exports = mongoose.model('books', BookSchema)
