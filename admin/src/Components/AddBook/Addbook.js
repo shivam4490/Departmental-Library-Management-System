@@ -7,6 +7,7 @@ const Addbook = (props) => {
     author: '',
     type: '',
     ISBN: '',
+    Image: '',
   })
   const [isAdded, setIsAdded] = useState(false)
 
@@ -26,6 +27,7 @@ const Addbook = (props) => {
         author: '',
         type: '',
         ISBN: '',
+        Image: '',
       })
     }
   }
@@ -101,6 +103,27 @@ const Addbook = (props) => {
             autoComplete='off'
             value={book.ISBN}
           />
+        </Form.Group>
+        <Form.Group controlId='image'>
+          <Form.Label>Image</Form.Label>
+          <Form.Control
+            type='text'
+            placeholder='Enter image url'
+            required
+            value={book.Image}
+            autoComplete='off'
+            onChange={(e) => {
+              setBook({ ...book, Image: e.target.value })
+            }}
+          ></Form.Control>
+          <Form.File
+            id='image-file'
+            label='Choose File'
+            custom
+            autoComplete='off'
+            // onChange={uploadFileHandler}
+          ></Form.File>
+          {/* {uploading && <Loader />} */}
         </Form.Group>
         <Button
           onClick={addBookHandler}
