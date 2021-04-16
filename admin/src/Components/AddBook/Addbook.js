@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Alert } from 'react-bootstrap'
+import axios from 'axios'
 
 const Addbook = (props) => {
   const [book, setBook] = useState({
@@ -10,9 +11,10 @@ const Addbook = (props) => {
     Image: '',
   })
   const [isAdded, setIsAdded] = useState(false)
+  const [uploading, setUploading] = useState(false)
 
   const addBookHandler = async () => {
-    if (book.title && book.author && book.type && book.ISBN) {
+    if (book.title && book.author && book.type && book.ISBN && book.Image) {
       const res = await fetch('http://localhost:5000/api/book/add', {
         method: 'post',
         mode: 'cors',
@@ -33,6 +35,35 @@ const Addbook = (props) => {
   }
 
   useEffect(() => {}, [])
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post(
+        'http://localhost:5000/api/upload',
+        formData,
+        config
+      )
+      console.log(data)
+
+      setBook({ ...book, Image: data })
+      console.log(book)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
 
   return (
     <div style={{ margin: 20 }}>
@@ -121,9 +152,8 @@ const Addbook = (props) => {
             label='Choose File'
             custom
             autoComplete='off'
-            // onChange={uploadFileHandler}
+            onChange={uploadFileHandler}
           ></Form.File>
-          {/* {uploading && <Loader />} */}
         </Form.Group>
         <Button
           onClick={addBookHandler}

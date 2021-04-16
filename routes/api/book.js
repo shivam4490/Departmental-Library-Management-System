@@ -7,11 +7,11 @@ const book = require('../../models/BookSchema')
 const user = require('../../models/UserSchema')
 
 router.post('/book/add', async (req, res) => {
-  const { author, title, ISBN, type } = req.body
+  const { author, title, ISBN, type, Image } = req.body
   console.log('Hello')
 
   try {
-    const newbook = await book.create({ author, title, ISBN, type })
+    const newbook = await book.create({ author, title, ISBN, type, Image })
     if (!newbook) {
       return res.status(400).json({ err: 'not created' })
     }

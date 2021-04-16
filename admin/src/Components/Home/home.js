@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Table, Button, Modal, Form } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
@@ -6,6 +7,7 @@ import { Nav, FormControl, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Home = (props) => {
+  const [uploading, setUploading] = useState(false)
   const [books, setbooks] = useState([])
   const [show, setshow] = useState(false)
   const [book, setBook] = useState({
@@ -13,6 +15,7 @@ const Home = (props) => {
     author: '',
     type: '',
     ISBN: '',
+    Image: '',
     _id: '',
   })
 
@@ -32,6 +35,35 @@ const Home = (props) => {
         console.log(err)
       })
   }, [])
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post(
+        'http://localhost:5000/api/upload',
+        formData,
+        config
+      )
+      console.log(data)
+
+      setBook({ ...book, Image: data })
+      console.log(book)
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
 
   const deleteBookHandler = async (id) => {
     const res = await fetch(`http://localhost:5000/api/book/${id}`, {
@@ -61,6 +93,7 @@ const Home = (props) => {
         author: newbook.author,
         type: newbook.type,
         ISBN: newbook.ISBN,
+        Image: newbook.Image,
       }
     })
   }
@@ -253,6 +286,26 @@ const Home = (props) => {
                 value={book.ISBN}
               />
             </Form.Group>
+            <Form.Group controlId='image'>
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter image url'
+                required
+                value={book.Image}
+                autoComplete='off'
+                onChange={(e) => {
+                  setBook({ ...book, Image: e.target.value })
+                }}
+              ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                autoComplete='off'
+                onChange={uploadFileHandler}
+              ></Form.File>
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -260,7 +313,14 @@ const Home = (props) => {
             variant='secondary'
             onClick={() => {
               handleClose()
-              setBook({ title: '', author: '', type: '', ISBN: '', id: '' })
+              setBook({
+                title: '',
+                author: '',
+                type: '',
+                ISBN: '',
+                id: '',
+                Image: '',
+              })
             }}
           >
             Close

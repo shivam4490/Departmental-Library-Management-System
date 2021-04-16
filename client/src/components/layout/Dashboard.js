@@ -131,7 +131,7 @@ const Dashboard = (props) => {
                     <Card.Body>
                       <Card.Img
                         variant='top'
-                        src={art}
+                        src={`../../../../${book.Image}`}
                         style={{ height: 250 }}
                       />
                       <Card.Title style={{ marginTop: 20 }}>

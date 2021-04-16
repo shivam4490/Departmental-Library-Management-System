@@ -11,6 +11,7 @@ const users = require('./routes/api/users')
 const app = express()
 
 const bookrouter = require('./routes/api/book')
+const upload = require('./routes/upload')
 
 // Bodyparser middleware
 app.use(
@@ -22,6 +23,7 @@ app.use(
 app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan('dev'))
+
 const dbURL =
   'mongodb+srv://shivam:shivam99090@cluster0.l3lw1.mongodb.net/library?retryWrites=true&w=majority'
 
@@ -43,6 +45,10 @@ require('./config/passport')(passport)
 // Routes
 app.use('/api/users', users)
 app.use('/api', bookrouter)
+app.use('/api/upload', upload)
+
+const folder = path.resolve()
+app.use('/uploads', express.static(path.join(folder, '/uploads')))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client', 'build')))
