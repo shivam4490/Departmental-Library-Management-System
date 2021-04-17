@@ -44,6 +44,8 @@ router.put('/book/issue/:id', async (req, res) => {
     const books = await book.findById(req.body._id)
 
     books.userId = req.body.userId
+    books.issueDate = req.body.issueDate
+    books.returnDate = req.body.returnDate
 
     const users = await user.findById(req.body.userId)
     books.username = users.name

@@ -35,11 +35,11 @@ const BookSchema = mongoose.Schema({
   },
   issueDate: {
     type: Date,
-    default: '',
+    default: null,
   },
   returnDate: {
     type: Date,
-    default: '',
+    default: null,
   },
 })
 

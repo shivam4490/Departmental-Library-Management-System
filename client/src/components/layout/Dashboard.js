@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../actions/authActions'
@@ -135,7 +135,7 @@ const Dashboard = (props) => {
                           <strong>Title: </strong>
                         </Col>
                         <Col>
-                          <Card.Title>{book.title}</Card.Title>
+                          <Card.Text>{book.title}</Card.Text>
                         </Col>
                       </Row>
                       <Row style={{ marginTop: 10 }}>

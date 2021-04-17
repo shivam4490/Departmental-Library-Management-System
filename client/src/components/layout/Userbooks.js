@@ -110,6 +110,7 @@ const Userbooks = (props) => {
                 }
               })
               .map((book) => {
+                console.log(book.issueDate)
                 return (
                   <Card
                     key={book._id}
@@ -127,7 +128,7 @@ const Userbooks = (props) => {
                           <strong>Title: </strong>
                         </Col>
                         <Col>
-                          <Card.Title>{book.title}</Card.Title>
+                          <Card.Text>{book.title}</Card.Text>
                         </Col>
                       </Row>
                       <Row style={{ marginTop: 10 }}>
@@ -152,6 +153,30 @@ const Userbooks = (props) => {
                         </Col>
                         <Col>
                           <Card.Text>{book.ISBN}</Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>IssueDate: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>
+                            {`${new Date(book.issueDate).getDate()}/${
+                              new Date(book.issueDate).getMonth() + 1
+                            }/${new Date(book.issueDate).getFullYear()}`}
+                          </Card.Text>
+                        </Col>
+                      </Row>
+                      <Row style={{ marginTop: 10 }}>
+                        <Col>
+                          <strong>ReturnDate: </strong>
+                        </Col>
+                        <Col>
+                          <Card.Text>{`${new Date(book.returnDate).getDate()}/${
+                            new Date(book.returnDate).getMonth() + 1
+                          }/${new Date(
+                            book.returnDate
+                          ).getFullYear()}`}</Card.Text>
                         </Col>
                       </Row>
 

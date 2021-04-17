@@ -54,6 +54,8 @@ const IssueBooks = (props) => {
             <th>#</th>
             <th>BookName</th>
             <th>username</th>
+            <th>IssueDate</th>
+            <th>ReturnDate</th>
           </tr>
         </thead>
 
@@ -74,6 +76,12 @@ const IssueBooks = (props) => {
                   <td>{index + 1}</td>
                   <td>{book.title}</td>
                   <td>{book.username}</td>
+                  <td>{`${new Date(book.issueDate).getDate()}/${
+                    new Date(book.issueDate).getMonth() + 1
+                  }/${new Date(book.issueDate).getFullYear()}`}</td>
+                  <td>{`${new Date(book.returnDate).getDate()}/${
+                    new Date(book.returnDate).getMonth() + 1
+                  }/${new Date(book.returnDate).getFullYear()}`}</td>
                 </tr>
               )
             })}

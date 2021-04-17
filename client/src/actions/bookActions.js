@@ -28,7 +28,14 @@ export const setbooks = () => (dispatch) => {
 export const issuebook = (book) => (dispatch, getState) => {
   const { auth } = getState()
 
-  const newbook = { ...book, userId: auth.user.id }
+  const newbook = {
+    ...book,
+    userId: auth.user.id,
+    issueDate: new Date(),
+    returnDate: new Date(
+      Date.now() + 1000 /*sec*/ * 60 /*min*/ * 60 /*hour*/ * 24 /*day*/ * 20
+    ),
+  }
   axios
     .put(`http://localhost:5000/api/book/issue/${book._id}`, newbook)
     .then((res) => {
